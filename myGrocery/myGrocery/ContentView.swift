@@ -10,17 +10,22 @@ import SwiftUI
 struct ContentView: View {
     @State var items = ["Pepsi","Kinder","Egg","coca","doritos"]
     @State var addItem = ""
+    @State var removeSelected = 0
     
     var body: some View {
         VStack{
-        List(items, id:\.self) {items in
+            
+        List(items, id:\.self) {item in
             HStack{
-            Text(items)
+            Text(item)
                 Spacer()
-                Image(items)
+                Image(item)
                     .resizable()
                     .frame(width: 50, height: 60)
                 
+            }
+            .onTapGesture {
+                removeSelected = items.firstIndex {$0 == item}!
             }
            
             
@@ -51,7 +56,7 @@ struct ContentView: View {
             
             Button(action: {
                
-                items.remove(at: 0)
+                items.remove(at: removeSelected)
                 
            } ) {
               
